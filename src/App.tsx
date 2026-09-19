@@ -13,6 +13,9 @@ import { getAllVoiceRecordings } from "./utils/voiceLibrary.ts";
 import { apiFetch } from "./utils/apiClient.ts";
 import { ShieldCheck, Cpu, Mic, Volume2 } from "lucide-react";
 
+import { subscribeServerState } from "./utils/apiClient.ts";
+import { Loader2 } from "lucide-react";
+
 export default function App() {
   const [currentLanguage, setCurrentLanguage] = useState<SupportedLanguageCode>("hi");
   const [activeTab, setActiveTab] = useState<AppTabType>("workbench");
@@ -20,6 +23,7 @@ export default function App() {
   const [voiceCount, setVoiceCount] = useState<number>(0);
   const [ttsInitialText, setTtsInitialText] = useState<string | undefined>(undefined);
   const [systemVerified, setSystemVerified] = useState<boolean>(false);
+  const [isWakingUp, setIsWakingUp] = useState<boolean>(false);
 
   const refreshVoiceCount = async () => {
     try {
@@ -31,15 +35,20 @@ export default function App() {
   };
 
   useEffect(() => {
+    const unsubscribe = subscribeServerState((waking) => setIsWakingUp(waking));
+
     // Ping startup check
-    apiFetch("/api/startup-check")
+    apiFetch("/api/languages")
       .then((res) => res.json())
       .then(() => setSystemVerified(true))
       .catch((e) => console.warn("Startup check ping:", e));
 
     setCacheCount(getLocalCacheSize());
     refreshVoiceCount();
+
+    return () => unsubscribe();
   }, []);
+
 
   const handleAudioCached = () => {
     setCacheCount(getLocalCacheSize());
@@ -65,8 +74,16 @@ export default function App() {
         voiceCount={voiceCount}
       />
 
+      {isWakingUp && (
+        <div className="bg-amber-50 border-b border-amber-200 text-amber-900 px-4 py-3 flex items-center justify-center gap-3 text-sm font-medium animate-pulse">
+          <Loader2 className="w-4 h-4 animate-spin text-amber-600" />
+          <span>Server is waking up (up to ~1 minute)… Typed input and demo mode keep working.</span>
+        </div>
+      )}
+
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
         {/* Global Language Selector (Present across all views so language can always be switched) */}
         <LanguageSelector
           selectedLanguage={currentLanguage}

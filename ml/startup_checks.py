@@ -10,8 +10,9 @@ def verify_all_tts_languages():
     print("[startup] Verifying Google Cloud TTS voices for all 6 supported languages...")
     verified = {}
     for code, info in SUPPORTED_LANGUAGES.items():
-        voice = get_best_voice(info["google_code"])
+        voice = get_best_voice(info["google_code"], code)
         print(f"[startup] {code} ({info['google_code']}) -> {voice}")
         verified[code] = voice
+
     print("[startup] All 6 language TTS voices verified successfully!")
     return verified
