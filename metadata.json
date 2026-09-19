@@ -1,0 +1,6 @@
+{
+  "name": "Indic Speech Engine",
+  "description": "Six-language speech recognition and synthesis platform covering English, Hindi, Tamil, Telugu, Kannada, and Bengali with ASR, TTS, and vocabulary caching.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

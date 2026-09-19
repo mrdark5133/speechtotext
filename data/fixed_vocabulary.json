@@ -1,0 +1,178 @@
+{
+  "need_water": {
+    "key": "need_water",
+    "category": "Basic Needs",
+    "icon": "Droplets",
+    "en": "I need water",
+    "hi": "मुझे पानी चाहिए",
+    "ta": "எனக்கு தண்ணீர் வேண்டும்",
+    "te": "నాకు నీళ్ళు కావాలి",
+    "kn": "ನನಗೆ ನೀರು ಬೇಕು",
+    "bn": "আমার জল দরকার"
+  },
+  "hungry": {
+    "key": "hungry",
+    "category": "Basic Needs",
+    "icon": "Utensils",
+    "en": "I am hungry",
+    "hi": "मुझे भूख लगी है",
+    "ta": "எனக்கு பசிக்கிறது",
+    "te": "నాకు ఆకలిగా ఉంది",
+    "kn": "ನನಗೆ ಹಸಿವಾಗಿದೆ",
+    "bn": "আমার খিদে পেয়েছে"
+  },
+  "toilet": {
+    "key": "toilet",
+    "category": "Basic Needs",
+    "icon": "Bath",
+    "en": "I need to go to the bathroom",
+    "hi": "मुझे शौचालय जाना है",
+    "ta": "நான் கழிவறைக்குச் செல்ல வேண்டும்",
+    "te": "నేను టాయిలెట్‌కి వెళ్ళాలి",
+    "kn": "ನಾನು ಶೌಚಾಲಯಕ್ಕೆ ಹೋಗಬೇಕು",
+    "bn": "আমাকে বাথরুমে যেতে হবে"
+  },
+  "medicine": {
+    "key": "medicine",
+    "category": "Health & Medical",
+    "icon": "Pill",
+    "en": "I need my medicine",
+    "hi": "मुझे मेरी दवाई चाहिए",
+    "ta": "எனக்கு மருந்து வேண்டும்",
+    "te": "నాకు నా మందులు కావాలి",
+    "kn": "ನನಗೆ ನನ್ನ ಔಷಧಿ ಬೇಕು",
+    "bn": "আমার ওষুধ দরকার"
+  },
+  "pain": {
+    "key": "pain",
+    "category": "Health & Medical",
+    "icon": "AlertCircle",
+    "en": "I am feeling pain",
+    "hi": "मुझे दर्द हो रहा है",
+    "ta": "எனக்கு வலிக்கிறது",
+    "te": "నాకు నొప్పిగా ఉంది",
+    "kn": "ನನಗೆ ನೋವಾಗುತ್ತಿದೆ",
+    "bn": "আমার ব্যথা করছে"
+  },
+  "need_help": {
+    "key": "need_help",
+    "category": "Emergency & Care",
+    "icon": "HandHelping",
+    "en": "I need help",
+    "hi": "मुझे मदद चाहिए",
+    "ta": "எனக்கு உதவி தேவை",
+    "te": "నాకు సహాయం కావాలి",
+    "kn": "ನನಗೆ ಸಹಾಯ ಬೇಕು",
+    "bn": "আমার সাহায্য দরকার"
+  },
+  "call_doctor": {
+    "key": "call_doctor",
+    "category": "Emergency & Care",
+    "icon": "Stethoscope",
+    "en": "Please call the doctor",
+    "hi": "कृपया डॉक्टर को बुलाएं",
+    "ta": "தயவுசெய்து மருத்துவரை அழைக்கவும்",
+    "te": "దయచేసి డాక్టర్‌ని పిలవండి",
+    "kn": "ದಯವಿಟ್ಟು ವೈದ್ಯರನ್ನು ಕರೆಯಿರಿ",
+    "bn": "দয়া করে ডাক্তার ডাকুন"
+  },
+  "stop": {
+    "key": "stop",
+    "category": "Emergency & Care",
+    "icon": "OctagonAlert",
+    "en": "Please stop",
+    "hi": "कृपया रुकिए",
+    "ta": "தயவுசெய்து நிறுத்துங்கள்",
+    "te": "దయచేసి ఆగండి",
+    "kn": "ದಯವಿಟ್ಟು ನಿಲ್ಲಿಸಿ",
+    "bn": "দয়া করে থামুন"
+  },
+  "yes": {
+    "key": "yes",
+    "category": "Quick Responses",
+    "icon": "CheckCircle2",
+    "en": "Yes",
+    "hi": "हाँ",
+    "ta": "ஆம்",
+    "te": "అవును",
+    "kn": "ಹೌದು",
+    "bn": "হ্যাঁ"
+  },
+  "no": {
+    "key": "no",
+    "category": "Quick Responses",
+    "icon": "XCircle",
+    "en": "No",
+    "hi": "नहीं",
+    "ta": "இல்லை",
+    "te": "కాదు",
+    "kn": "ಇಲ್ಲ",
+    "bn": "না"
+  },
+  "thank_you": {
+    "key": "thank_you",
+    "category": "Social & Politeness",
+    "icon": "Heart",
+    "en": "Thank you",
+    "hi": "धन्यवाद",
+    "ta": "நன்றி",
+    "te": "ధన్యవాదాలు",
+    "kn": "ಧನ್ಯವಾದಗಳು",
+    "bn": "ধন্যবাদ"
+  },
+  "please": {
+    "key": "please",
+    "category": "Social & Politeness",
+    "icon": "Sparkles",
+    "en": "Please",
+    "hi": "कृपया",
+    "ta": "தயவுசெய்து",
+    "te": "దయచేసి",
+    "kn": "ದಯವಿಟ್ಟು",
+    "bn": "দয়া করে"
+  },
+  "tired": {
+    "key": "tired",
+    "category": "Feelings",
+    "icon": "Moon",
+    "en": "I am tired, I want to sleep",
+    "hi": "मैं थक गया हूँ, सोना चाहता हूँ",
+    "ta": "நான் சோர்வாக இருக்கிறேன், தூங்க வேண்டும்",
+    "te": "నేను అలసిపోయాను, పడుకోవాలి",
+    "kn": "ನಾನು ದಣಿದಿದ್ದೇನೆ, ಮಲಗಬೇಕು",
+    "bn": "আমি ক্লান্ত, ঘুমাতে চাই"
+  },
+  "feel_cold": {
+    "key": "feel_cold",
+    "category": "Feelings",
+    "icon": "ThermometerSnowflake",
+    "en": "I am feeling cold",
+    "hi": "मुझे ठंड लग रही है",
+    "ta": "எனக்கு குளிராக இருக்கிறது",
+    "te": "నాకు చలిగా ఉంది",
+    "kn": "ನನಗೆ ಚಳಿಯಾಗುತ್ತಿದೆ",
+    "bn": "আমার ঠান্ডা লাগছে"
+  },
+  "feel_hot": {
+    "key": "feel_hot",
+    "category": "Feelings",
+    "icon": "Sun",
+    "en": "I am feeling hot",
+    "hi": "मुझे गर्मी लग रही है",
+    "ta": "எனக்கு சூடாக இருக்கிறது",
+    "te": "నాకు వేడిగా ఉంది",
+    "kn": "ನನಗೆ ಸೆಖೆಯಾಗುತ್ತಿದೆ",
+    "bn": "আমার গরম লাগছে"
+  },
+  "good_morning": {
+    "key": "good_morning",
+    "category": "Social & Politeness",
+    "icon": "Sunrise",
+    "en": "Good morning",
+    "hi": "सुप्रभात",
+    "ta": "காலை வணக்கம்",
+    "te": "శుభోదయం",
+    "kn": "ಶುಭೋದಯ",
+    "bn": "শুভ সকাল"
+  }
+}
