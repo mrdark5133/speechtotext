@@ -9,6 +9,6 @@ services:
       - key: PORT
         value: 10000
       - key: WHISPER_MODEL_SIZE
-        value: small
+        value: base
       - key: WHISPER_DEVICE
         value: cpu

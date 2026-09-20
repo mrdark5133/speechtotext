@@ -38,7 +38,7 @@ try:
     r = urllib.request.urlopen(f"{BASE_URL}/health", timeout=10)
     latency = int((time.perf_counter() - start) * 1000)
     data = json.loads(r.read().decode())
-    check("1. /health", r.status == 200 and data.get("status") == "ok", f"({latency}ms)")
+    check("1. /health", r.status == 200 and data.get("status") == "ok" and "tts_ready" in data, f"({latency}ms, asr_loaded={data.get('asr_loaded')}, tts_ready={data.get('tts_ready')})")
 except Exception as e:
     check("1. /health", False, str(e))
 
@@ -80,7 +80,7 @@ try:
     r = urllib.request.urlopen(f"{BASE_URL}/api/asr/health", timeout=10)
     latency = int((time.perf_counter() - start) * 1000)
     data = json.loads(r.read().decode())
-    check("5. /api/asr/health", r.status == 200 and data.get("status") == "ready", f"({latency}ms)")
+    check("5. /api/asr/health", r.status == 200 and data.get("status") in ("ready", "not_loaded"), f"({latency}ms, status={data.get('status')})")
 except Exception as e:
     check("5. /api/asr/health", False, str(e))
 

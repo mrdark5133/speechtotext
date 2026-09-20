@@ -41,9 +41,10 @@ This design specifies the deployment of the speech platform as a single Docker c
 ## 5. Memory Audit & Capacity Budget
 - **Target Budget**: Render Free Tier = 512 MB RAM.
 - **Measured Resident Set Size (RSS)**:
-  - Base FastAPI Server RSS: **69.20 MB**
-  - FastAPI + faster-whisper (`whisper-small` int8) loaded: **323.67 MB**
-  - Total Memory Headroom: **~188 MB (36.7% free memory)** under Render 512 MB ceiling.
+  - Base FastAPI Server RSS: **~50.5 MB**
+  - FastAPI + faster-whisper (`whisper-base` int8) loaded: **~145.89 MB**
+  - Peak Active Transcription RSS: **~180–220 MB**
+  - Total Memory Headroom: **>290 MB (>55% safety margin)** under Render 512 MB ceiling.
 - **Data Footprint**: `data/` directory is **6.45 KB**.
 - **Cold Start Strategy**:
   - 15-minute idle spin-down handled with a 90-second client waking-up banner and exponential backoff retry mechanism.

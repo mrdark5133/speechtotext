@@ -1,4 +1,4 @@
-﻿# ml/tests/test_asr.py
+# ml/tests/test_asr.py
 import time
 import pytest
 from ml.languages import SUPPORTED_LANGUAGES
@@ -103,3 +103,37 @@ def test_latency_under_threshold(client, sample_audio_for):
     p95 = sorted(times)[int(len(times) * 0.95)]
     # CPU threshold is generous (10s) — GPU would be ~2s
     assert p95 < 10.0, f"p95 latency {p95:.2f}s exceeded 10s threshold"
+
+
+def test_audio_payload_too_large(client):
+    """Audio payload over 10 MB must return 413."""
+    import io
+    oversized = io.BytesIO(b"0" * (10 * 1024 * 1024 + 1024))
+    r = client.post(
+        "/asr/transcribe",
+        files={"audio": ("large.wav", oversized, "audio/wav")},
+        data={"language": "en"},
+    )
+    assert r.status_code == 413
+    assert "exceeds maximum allowed size" in r.json()["detail"]
+
+
+def test_asr_model_load_failure_returns_503(client, monkeypatch):
+    """If Whisper model fails to load, /asr/transcribe must return 503 with clear detail."""
+    import ml.routers.asr as asr_module
+    import io
+
+    # Simulate load failure state
+    monkeypatch.setattr(asr_module, "_model", None)
+    monkeypatch.setattr(asr_module, "_load_error", "Out of Memory simulated")
+
+    fake_audio = io.BytesIO(b"RIFF" + b"\x00" * 200)
+    r = client.post(
+        "/asr/transcribe",
+        files={"audio": ("sample.wav", fake_audio, "audio/wav")},
+        data={"language": "en"},
+    )
+    assert r.status_code == 503
+    assert "ASR service unavailable" in r.json()["detail"]
+    assert "Out of Memory simulated" in r.json()["detail"]
+

@@ -10,10 +10,13 @@ RUN npm run build
 FROM python:3.12-slim
 WORKDIR /app
 
+ARG WHISPER_MODEL_SIZE=base
 ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     PORT=10000 \
-    HF_HUB_DISABLE_SYMLINKS_WARNING=1
+    HF_HUB_DISABLE_SYMLINKS_WARNING=1 \
+    WHISPER_MODEL_SIZE=${WHISPER_MODEL_SIZE} \
+    WHISPER_DEVICE=cpu
 
 # Install system audio utilities & dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -24,8 +27,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY ml/requirements.txt ml/requirements.txt
 RUN pip install --no-cache-dir -r ml/requirements.txt
 
-# Bake Whisper model checkpoint at build time (Zero runtime downloads on cold start)
-RUN python -c "from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8')"
+# Bake Whisper model checkpoint at build time using the unified WHISPER_MODEL_SIZE variable
+RUN python -c "from faster_whisper import WhisperModel; import os; WhisperModel(os.environ.get('WHISPER_MODEL_SIZE', 'base'), device='cpu', compute_type='int8')"
 
 # Copy backend code, data, and built frontend
 COPY ml/ ml/

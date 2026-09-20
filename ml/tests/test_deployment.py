@@ -13,7 +13,11 @@ from ml.main import app
 def test_health_endpoint(client):
     r = client.get("/health")
     assert r.status_code == 200
-    assert r.json().get("status") == "ok"
+    data = r.json()
+    assert data.get("status") == "ok"
+    assert "asr_loaded" in data
+    assert "tts_ready" in data
+    assert data["tts_ready"] is True
 
 
 def test_api_languages_endpoint(client):

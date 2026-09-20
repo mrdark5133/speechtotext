@@ -65,6 +65,11 @@ def get_tts_client():
     return _tts_client
 
 
+def is_tts_ready() -> bool:
+    """TTS is always ready as Neural Edge-TTS / gTTS fallback requires 0 credentials."""
+    return True
+
+
 
 def get_best_voice(google_code: str, lang_key: str, gender: str = "FEMALE") -> str:
     """Pick best available voice name."""

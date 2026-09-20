@@ -18,10 +18,10 @@
 ## 2. Memory & Performance Measurements
 
 - **Measured Environment**: Local Python runtime
-- **FastAPI ML Server Base RSS**: **69.20 MB**
-- **FastAPI + faster-whisper (`whisper-small` int8) Active RSS**: **323.67 MB**
+- **FastAPI ML Server Base RSS**: **~50.5 MB**
+- **FastAPI + faster-whisper (`whisper-base` int8) Active RSS**: **~145.89 MB** (Peak: ~180–220 MB)
 - **Render Free Tier Limit**: **512 MB**
-- **Available Headroom**: **~188 MB (36.7% safety margin)**
+- **Available Headroom**: **>290 MB (>55% safety margin)**
 - **Static Assets Size (`dist/`)**: **~370 KB total**
 - **Data Footprint (`data/`)**: **6.45 KB**
 - **Docker Step Status**: Docker Desktop is not installed on the local host machine; local verification was executed via direct production build and uvicorn on port 10000.

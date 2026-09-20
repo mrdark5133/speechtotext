@@ -27,15 +27,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-from ml.routers.asr import router as asr_router
-from ml.routers.tts import router as tts_router
+from ml.routers.asr import router as asr_router, is_model_loaded, MODEL_SIZE
+from ml.routers.tts import router as tts_router, is_tts_ready
 from ml.languages import SUPPORTED_LANGUAGES
 
 from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Warm up Whisper model and verify TTS voices at boot."""
+    """Verify TTS voices at boot. Whisper model is loaded lazily on demand to keep boot instant & resilient."""
     print("=" * 60)
     print("VaaniSetu ML Service starting...")
 
@@ -46,13 +46,7 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         print(f"[startup] WARNING: TTS voice check failed: {e}")
 
-    # Warm up Whisper (loads model into memory so first request is fast)
-    try:
-        from ml.routers.asr import warm_up_model
-        warm_up_model()
-    except Exception as e:
-        print(f"[startup] WARNING: Whisper warm-up failed: {e}")
-
+    print(f"[startup] ASR Model '{MODEL_SIZE}' configured for lazy on-demand loading.")
     print("=" * 60)
     yield
 
@@ -80,7 +74,13 @@ app.include_router(tts_router, prefix="/api")
 # ── Health check endpoint ─────────────────────────────────────
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "VaaniSetu ML Service"}
+    return {
+        "status": "ok",
+        "service": "VaaniSetu ML Service",
+        "asr_loaded": is_model_loaded(),
+        "tts_ready": is_tts_ready(),
+        "whisper_model": MODEL_SIZE,
+    }
 
 
 # ── Languages endpoint ────────────────────────────────────────

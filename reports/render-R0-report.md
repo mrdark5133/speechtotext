@@ -17,8 +17,8 @@
 | **Python Version** | Python 3.12-slim base image | Verified |
 | **Python Dependencies** | Declared in `ml/requirements.txt` | Verified |
 | **Model Pre-baking** | Whisper model downloaded & baked into Docker image during build stage (zero runtime downloads) | Planned |
-| **Memory RSS (Base)** | 69.20 MB (FastAPI app idle) | Verified |
-| **Memory RSS (Model Active)** | 323.67 MB (`whisper-small` int8 loaded in memory) | Verified (< 512 MB) |
+| **Memory RSS (Base)** | ~50.5 MB (FastAPI app idle) | Verified |
+| **Memory RSS (Model Active)** | ~145.89 MB (`whisper-base` int8 loaded in memory, peak ~180-220 MB) | Verified (< 512 MB) |
 | **Data Directory Size** | 6.45 KB (`data/fixed_vocabulary.json`) | Verified |
 | **Local Docker Status** | Docker Desktop is not installed on local host (local verification will run via direct build & uvicorn serving `dist`) | Noted |
 

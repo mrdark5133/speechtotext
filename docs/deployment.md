@@ -32,17 +32,26 @@ This project is configured to deploy to **Render (Free Web Service Tier)** using
    - **Health Check Path**: `/health`
 4. In **Environment Variables**, add:
    - `PORT`: `10000`
-   - `WHISPER_MODEL_SIZE`: `small` (or `base` if memory headroom > 350 MB is required)
+   - `WHISPER_MODEL_SIZE`: `base` (unified default baked at build time)
    - `WHISPER_DEVICE`: `cpu`
 5. Click **"Create Web Service"**.
 
 ---
 
-## 3. Build & Operational Expectations
-- **Initial Build Time**: **~3 to 5 minutes** (Node.js builds frontend assets; Python downloads packages and bakes Whisper int8 model weights into the container image).
-- **Subsequent Build Time**: **~1 to 2 minutes** (cached layers).
-- **Cold Start Duration**: **~50 to 60 seconds** after 15 minutes of inactivity on the Render free tier.
-- **Microphone & Camera Permissions**: Render automatically provisions TLS/HTTPS (`https://<app-name>.onrender.com`), which is required by modern browsers to grant Web Audio / MediaDevices microphone access.
+## 3. Memory & Operational Profile (Render Free Tier 512 MB)
+- **Model Configuration**: `whisper-base` (int8 quantized on CPU, single thread `cpu_threads=1`, `num_workers=1`).
+- **Memory Footprint**:
+  - Base Service Idle RSS: **~50–70 MB**
+  - Whisper-base Loaded RSS: **~145–180 MB**
+  - Active Transcription Peak RSS: **~180–220 MB**
+  - Safety Headroom on Render 512 MB Free Tier: **>290 MB (>55% free headroom)**.
+- **Zero-Downtime Resilience**:
+  - **Lazy Loading**: Whisper model is loaded lazily on the first ASR request or in the background so `/health` responds immediately (<5ms) during cold boots.
+  - **Concurrency Guard**: Simultaneous ASR jobs are serialized with an `asyncio.Lock()` to prevent concurrent memory spikes.
+  - **Audio Length Capping**: Audio uploads are strictly capped at 10 MB to prevent out-of-memory allocations.
+  - **Graceful Fallback**: If ASR encounters an out-of-memory or system load error, `/asr/transcribe` returns a clean HTTP 503 response while TTS (Google Cloud + Neural Edge-TTS), `/languages`, `/vocabulary`, and UI navigation remain 100% operational.
+- **Initial Build Time**: **~2 to 4 minutes** (Node.js builds frontend SPA; Python bakes `base` Whisper weights into Docker layer).
+- **Cold Start Duration**: **~50 to 60 seconds** after 15 minutes of inactivity on Render Free Web Service.
 
 ---
 

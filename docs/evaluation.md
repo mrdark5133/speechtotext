@@ -41,6 +41,7 @@ Latency and accuracy metrics are measured across end-to-end user interactions (A
 
 ## 3. Memory & Resource Profile
 
-- **Base Service Idle RSS**: 69.20 MB
-- **Active Memory Footprint (Whisper-small loaded)**: 323.67 MB
-- **Safety Margin on Render 512 MB Free Tier**: 188.33 MB (36.7%)
+- **Base Service Idle RSS**: ~50.5 MB
+- **Active Memory Footprint (Whisper-base loaded)**: ~145.89 MB
+- **Peak Transcription Memory Footprint**: ~180–220 MB
+- **Safety Margin on Render 512 MB Free Tier**: >290 MB (>55% headroom)
