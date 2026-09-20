@@ -13,7 +13,6 @@ from typing import Optional
 
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from faster_whisper import WhisperModel
-import psutil
 
 from ml.languages import SUPPORTED_LANGUAGES
 
@@ -34,9 +33,11 @@ _asr_lock = asyncio.Lock()
 def _get_rss_mb() -> float:
     """Return current process Resident Set Size in MB."""
     try:
+        import psutil
         return psutil.Process().memory_info().rss / (1024 * 1024)
     except Exception:
         return 0.0
+
 
 
 def is_model_loaded() -> bool:
